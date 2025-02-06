@@ -26,12 +26,9 @@ SELECT
     COUNT(transaction_id) AS total_transactions,
     ROUND(AVG(total), 2) AS average_total,
     COUNT(DISTINCT customer_id) AS unique_customers
-FROM 
-    `ecommerce_transaction.sales`
-GROUP BY 
-    store
-ORDER BY 
-    total_transactions DESC;
+FROM `ecommerce_transaction.sales`
+GROUP BY store
+ORDER BY total_transactions DESC;
 ```
 🔹 Displays total transactions, average spending, and unique customers per store.
 
@@ -41,12 +38,9 @@ SELECT
     product_id,
     SUM(quantity) AS total_quantity,
     ROUND(SUM(total), 2) AS total_revenue
-FROM 
-    `ecommerce_transaction.sales`
-GROUP BY 
-    product_id
-ORDER BY 
-    total_quantity DESC
+FROM `ecommerce_transaction.sales`
+GROUP BY product_id
+ORDER BY total_quantity DESC
 LIMIT 10;
 ```
 🔹 Identifies top 10 best-selling products by quantity.
@@ -59,12 +53,9 @@ SELECT
     customer_gender,
     COUNT(transaction_id) AS total_transactions,
     ROUND(SUM(total), 2) AS total_spent
-FROM 
-    `ecommerce_transaction.sales`
-GROUP BY 
-    customer_id, customer_city, customer_gender
-ORDER BY 
-    total_spent DESC
+FROM `ecommerce_transaction.sales`
+GROUP BY customer_id, customer_city, customer_gender
+ORDER BY total_spent DESC
 LIMIT 10;
 ```
 🔹 Lists the top 10 customers with the highest spending.
@@ -75,12 +66,9 @@ SELECT
     DATE(created_at) AS transaction_date,
     ROUND(SUM(total), 2) AS daily_revenue,
     COUNT(transaction_id) AS total_transactions
-FROM 
-    `ecommerce_transaction.sales`
-GROUP BY 
-    transaction_date
-ORDER BY 
-    transaction_date ASC;
+FROM `ecommerce_transaction.sales`
+GROUP BY transaction_date
+ORDER BY transaction_date ASC;
 ```
 🔹 Tracks daily revenue trends.
 
@@ -91,12 +79,9 @@ SELECT
     COUNT(transaction_id) AS total_transactions,
     ROUND(SUM(total), 2) AS total_revenue,
     ROUND(AVG(total), 2) AS average_revenue
-FROM 
-    `ecommerce_transaction.sales`
-GROUP BY 
-    customer_gender
-ORDER BY 
-    total_revenue DESC;
+FROM `ecommerce_transaction.sales`
+GROUP BY customer_gender
+ORDER BY total_revenue DESC;
 ```
 🔹 Compares transaction volume and revenue contribution by gender.
 
@@ -105,12 +90,9 @@ ORDER BY
 SELECT 
     customer_city,
     ROUND(AVG(quantity), 2) AS avg_quantity_per_transaction
-FROM 
-    `ecommerce_transaction.sales`
-GROUP BY 
-    customer_city
-ORDER BY 
-    avg_quantity_per_transaction DESC
+FROM `ecommerce_transaction.sales`
+GROUP BY customer_city
+ORDER BY avg_quantity_per_transaction DESC
 LIMIT 10;
 ```
 🔹 Displays the top 10 cities with the highest average product quantity per transaction.
@@ -122,12 +104,9 @@ SELECT
     SUM(quantity * (product_price * 0.2)) AS total_profit,
     ROUND(SUM(total), 2) AS total_revenue,
     SUM(quantity) AS total_quantity_sold
-FROM 
-    `ecommerce_transaction.sales`
-GROUP BY 
-    product_id
-ORDER BY 
-    total_profit DESC
+FROM `ecommerce_transaction.sales`
+GROUP BY product_id
+ORDER BY total_profit DESC
 LIMIT 10;
 ```
 🔹 Identifies the top 10 products generating the highest profit margin.
@@ -139,12 +118,9 @@ SELECT
     EXTRACT(MONTH FROM created_at) AS month,
     ROUND(SUM(total), 2) AS total_revenue,
     COUNT(transaction_id) AS total_transactions
-FROM 
-    `ecommerce_transaction.sales`
-GROUP BY 
-    year, month
-ORDER BY 
-    year ASC, month ASC;
+FROM `ecommerce_transaction.sales`
+GROUP BY year, month
+ORDER BY year ASC, month ASC;
 ```
 🔹 Shows revenue and transaction trends on a monthly basis.
 
@@ -156,14 +132,10 @@ SELECT
     customer_gender,
     ROUND(SUM(total), 2) AS total_spent,
     COUNT(transaction_id) AS total_transactions
-FROM 
-    `ecommerce_transaction.sales`
-GROUP BY 
-    customer_id, customer_city, customer_gender
-HAVING 
-    total_transactions = 1
-ORDER BY 
-    total_spent DESC;
+FROM `ecommerce_transaction.sales`
+GROUP BY customer_id, customer_city, customer_gender
+HAVING total_transactions = 1
+ORDER BY total_spent DESC;
 ```
 🔹 Identifies customers who have only made one purchase.
 
