@@ -6,7 +6,7 @@ SELECT
     ROUND(AVG(total), 2) AS average_total,
     COUNT(DISTINCT customer_id) AS unique_customers
 FROM 
-    `ecommerce.transactions`
+    `ecommerce_transaction.sales`
 GROUP BY 
     store
 ORDER BY 
@@ -20,7 +20,7 @@ SELECT
     SUM(quantity) AS total_quantity,
     ROUND(SUM(total), 2) AS total_revenue
 FROM 
-    `ecommerce.transactions`
+    `ecommerce_transaction.sales`
 GROUP BY 
     product_id
 ORDER BY 
@@ -37,7 +37,7 @@ SELECT
     COUNT(transaction_id) AS total_transactions,
     ROUND(SUM(total), 2) AS total_spent
 FROM 
-    `ecommerce.transactions`
+    `ecommerce_transaction.sales`
 GROUP BY 
     customer_id, customer_city, customer_gender
 ORDER BY 
@@ -52,7 +52,7 @@ SELECT
     ROUND(SUM(total), 2) AS daily_revenue,
     COUNT(transaction_id) AS total_transactions
 FROM 
-    `ecommerce.transactions`
+    `ecommerce_transaction.sales`
 GROUP BY 
     transaction_date
 ORDER BY 
@@ -67,7 +67,7 @@ SELECT
     ROUND(SUM(total), 2) AS total_revenue,
     ROUND(AVG(total), 2) AS average_revenue
 FROM 
-    `ecommerce.transactions`
+    `ecommerce_transaction.sales`
 GROUP BY 
     customer_gender
 ORDER BY 
@@ -80,7 +80,7 @@ SELECT
     customer_city,
     ROUND(AVG(quantity), 2) AS avg_quantity_per_transaction
 FROM 
-    `ecommerce.transactions`
+    `ecommerce_transaction.sales`
 GROUP BY 
     customer_city
 ORDER BY 
@@ -88,29 +88,15 @@ ORDER BY
 LIMIT 10;
 
 -------------------------------------------------------------------------------------------
---Spending Ratio by Gender
---Calculates the average spending ratio for male and female customers.
-SELECT 
-    customer_gender,
-    ROUND(AVG(total), 2) AS avg_spent_per_customer,
-    ROUND(AVG(total) / (SELECT AVG(total) FROM `ecommerce.transactions`), 2) AS spending_ratio
-FROM 
-    `ecommerce.transactions`
-GROUP BY 
-    customer_gender
-ORDER BY 
-    avg_spent_per_customer DESC;
-
--------------------------------------------------------------------------------------------
 --Most Profitable Products
 --Analyzes products with the highest profit margins, assuming a 20% margin on product price.
 SELECT 
     product_id,
-    SUM(quantity * (product_price * 0.2)) AS total_profit,
+    ROUND(SUM(quantity * (product_price * 0.2))) AS total_profit,
     ROUND(SUM(total), 2) AS total_revenue,
     SUM(quantity) AS total_quantity_sold
 FROM 
-    `ecommerce.transactions`
+    `ecommerce_transaction.sales`
 GROUP BY 
     product_id
 ORDER BY 
@@ -118,7 +104,7 @@ ORDER BY
 LIMIT 10;
 
 -------------------------------------------------------------------------------------------
---Monthly Sales Trends
+--Monthly Sales Trends    
 --Analyzes total revenue and transactions by month.
 SELECT 
     EXTRACT(YEAR FROM created_at) AS year,
@@ -126,7 +112,7 @@ SELECT
     ROUND(SUM(total), 2) AS total_revenue,
     COUNT(transaction_id) AS total_transactions
 FROM 
-    `ecommerce.transactions`
+    `ecommerce_transaction.sales`
 GROUP BY 
     year, month
 ORDER BY 
@@ -142,7 +128,7 @@ SELECT
     ROUND(SUM(total), 2) AS total_spent,
     COUNT(transaction_id) AS total_transactions
 FROM 
-    `ecommerce.transactions`
+    `ecommerce_transaction.sales`
 GROUP BY 
     customer_id, customer_city, customer_gender
 HAVING 
