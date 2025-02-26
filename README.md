@@ -1,7 +1,7 @@
 # 📊 E-Commerce Transactions Analysis with Google BigQuery
 
 ## 📌 Overview
-This project contains SQL queries used to analyze e-commerce transactions using **Google BigQuery**. The dataset includes customer purchases, store performance, product sales, and revenue insights.
+This project contains SQL queries used to analyze e-commerce transactions using Google BigQuery. It is a study case from the Data Analytics Mini Course by RevoU. The dataset includes customer purchases, store performance, product sales, and revenue insights, providing valuable business intelligence for decision-making.
 
 ## 📂 Dataset
 The dataset consists of e-commerce transactions with the following columns:
